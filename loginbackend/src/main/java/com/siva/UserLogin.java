@@ -35,10 +35,16 @@ public class UserLogin extends HttpServlet {
             System.out.println("came if validated");
 			validated = new User(uname, true);
 		} else {
-            validated = new User(uname, false);
+            validated = new User("", false);
 		}
 
+        //To Prevent cors missing allow origin
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, HEAD");
+        response.addHeader("Access-Control-Allow-Headers", "X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept");
+        response.addHeader("Access-Control-Max-Age", "1728000");
         
+
         String validatedUserJsonString = new Gson().toJson(validated);
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");
